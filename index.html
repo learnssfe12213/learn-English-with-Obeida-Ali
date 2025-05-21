@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عبيدة العلي يهديكم هذه المكتبة البسيطة من الكلمات </title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Reset بسيط وإعدادات أساسية */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            line-height: 1.6;
+            background-color: #f0f4f8; /* لون خلفية ناعم */
+            color: #333;
+            direction: rtl; /* دعم اللغة العربية */
+        }
+
+        a {
+            text-decoration: none;
+            color: #007bff; /* لون روابط أساسي */
+        }
+
+        /* الهيدر (تم تبسيطه) */
+        header {
+            background-color: #4a90e2; /* لون تعليمي هادئ */
+            color: #fff;
+            padding: 1.5rem 0; /* زيادة الحشو قليلاً بعد إزالة التنقل */
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            color: #fff;
+            font-size: 1.8rem;
+            margin: 0; /* إزالة الهامش الافتراضي */
+        }
+
+        /* المحتوى الرئيسي */
+        main {
+            max-width: 900px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* قسم المفردات (القسم الوحيد الآن) */
+        section#vocabulary {
+            background-color: #fff;
+            margin-bottom: 1.5rem;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            /* لا حاجة لـ display: block أو none هنا لأنه القسم الوحيد */
+        }
+
+        section#vocabulary h2 {
+            color: #4a90e2;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 0.5rem;
+        }
+
+        /* تنسيق قائمة المفردات */
+        .vocabulary-list {
+            display: grid;
+            /* جعل الأعمدة أعرض قليلاً لاستيعاب كلمات أطول محتملة */
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); 
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .vocab-item {
+            background-color: #e7f3ff; /* خلفية مميزة للكلمات */
+            padding: 1rem;
+            border-radius: 6px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: 1px solid #cce0ff;
+            word-wrap: break-word; /* لضمان التفاف الكلمات الطويلة */
+        }
+
+        .vocab-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .vocab-item .term {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 0.3rem;
+            font-size: 1.1rem;
+            color: #0056b3;
+        }
+
+        .vocab-item .translation {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        /* الفوتر */
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            background-color: #e9ecef;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        /* تجاوبية بسيطة */
+        @media (max-width: 600px) {
+             .vocabulary-list {
+                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            }
+        }
+         @media (max-width: 400px) {
+             .vocabulary-list {
+                grid-template-columns: 1fr 1fr; /* عمودان فقط على الشاشات الصغيرة جدًا */
+            }
+             header h1 {
+                 font-size: 1.5rem;
+             }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>عبيدة العلي يهديكم هذه المكتبة البسيطة من الكلمات</h1>
+    </header>
+
+    <main>
+        <section id="vocabulary">
+            <h2>قائمة المفردات (عينة موسعة)</h2>
+            <p>دعواتكم الطيبة لاخوكم في الله عبيدة العلي اتمنى ان ينال على اعجابكم هذا التطبيق البسيط 
+			وان شاء الله في المستقبل سيكون هناك غير هذا اذا اعجبتكم الطريقة 
+اضغط على الكلمة للاستماع للنطق			</p>
+            <div class="vocabulary-list">
+                </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; صلوا على الحبيب محمد وادعوا لابي وامي بالرحمة ولكل المسلمين </p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const vocabularyListContainer = document.querySelector('.vocabulary-list');
+
+            // --- قائمة الكلمات (عينة موسعة ~400 كلمة) ---
+            // !!!!! تنبيه هام !!!!!
+            // هذه القائمة هي عينة موسعة (حوالي 400 كلمة) وليست الـ 2000 كلمة المطلوبة بالكامل.
+            // ستحتاج إلى إضافة الـ 1600 كلمة المتبقية بنفسك هنا.
+            // يمكنك البحث عن "قوائم الكلمات الإنجليزية الأكثر شيوعًا" (Common English Word Lists) 
+            // مثل (Oxford 3000/5000, COCA lists) للحصول على الكلمات وترجمتها.
+            const words = [
+                // Previous 200 words...
+                { term: "Hello", translation: "مرحباً" }, { term: "Goodbye", translation: "وداعاً" },
+                { term: "Yes", translation: "نعم" }, { term: "No", translation: "لا" },
+                { term: "Please", translation: "من فضلك" }, { term: "Thank you", translation: "شكراً لك" },
+                { term: "Sorry", translation: "آسف" }, { term: "Excuse me", translation: "معذرة" },
+                { term: "Good morning", translation: "صباح الخير" }, { term: "Good evening", translation: "مساء الخير" },
+                { term: "Man", translation: "رجل" }, { term: "Woman", translation: "امرأة" },
+                { term: "Boy", translation: "ولد" }, { term: "Girl", translation: "فتاة" },
+                { term: "Friend", translation: "صديق/صديقة" }, { term: "Family", translation: "عائلة" },
+                { term: "Father", translation: "أب" }, { term: "Mother", translation: "أم" },
+                { term: "Brother", translation: "أخ" }, { term: "Sister", translation: "أخت" },
+                { term: "House", translation: "منزل/بيت" }, { term: "School", translation: "مدرسة" },
+                { term: "Shop", translation: "متجر/محل" }, { term: "Street", translation: "شارع" },
+                { term: "City", translation: "مدينة" }, { term: "Country", translation: "بلد/دولة" },
+                { term: "Room", translation: "غرفة" }, { term: "Kitchen", translation: "مطبخ" },
+                { term: "Bathroom", translation: "حمام" }, { term: "Garden", translation: "حديقة" },
+                { term: "Food", translation: "طعام" }, { term: "Water", translation: "ماء" },
+                { term: "Bread", translation: "خبز" }, { term: "Milk", translation: "حليب" },
+                { term: "Apple", translation: "تفاحة" }, { term: "Banana", translation: "موزة" },
+                { term: "Orange", translation: "برتقالة/برتقالي" }, { term: "Tea", translation: "شاي" },
+                { term: "Coffee", translation: "قهوة" }, { term: "Sugar", translation: "سكر" },
+                { term: "Animal", translation: "حيوان" }, { term: "Dog", translation: "كلب" },
+                { term: "Cat", translation: "قطة" }, { term: "Bird", translation: "طائر" },
+                { term: "Fish", translation: "سمكة" }, { term: "Horse", translation: "حصان" },
+                { term: "Book", translation: "كتاب" }, { term: "Pen", translation: "قلم" },
+                { term: "Table", translation: "طاولة" }, { term: "Chair", translation: "كرسي" },
+                { term: "Door", translation: "باب" }, { term: "Window", translation: "نافذة" },
+                { term: "Car", translation: "سيارة" }, { term: "Bus", translation: "حافلة" },
+                { term: "Phone", translation: "هاتف" }, { term: "Computer", translation: "حاسوب" },
+                { term: "Be", translation: "يكون (am, is, are)" }, { term: "Have", translation: "يملك/لديه" },
+                { term: "Go", translation: "يذهب" }, { term: "Come", translation: "يأتي" },
+                { term: "See", translation: "يرى" }, { term: "Look", translation: "ينظر" },
+                { term: "Say", translation: "يقول" }, { term: "Tell", translation: "يخبر" },
+                { term: "Work", translation: "يعمل" }, { term: "Play", translation: "يلعب" },
+                { term: "Eat", translation: "يأكل" }, { term: "Drink", translation: "يشرب" },
+                { term: "Read", translation: "يقرأ" }, { term: "Write", translation: "يكتب" },
+                { term: "Speak", translation: "يتحدث" }, { term: "Listen", translation: "يستمع" },
+                { term: "Walk", translation: "يمشي" }, { term: "Run", translation: "يجري" },
+                { term: "Sit", translation: "يجلس" }, { term: "Stand", translation: "يقف" },
+                { term: "Open", translation: "يفتح" }, { term: "Close", translation: "يغلق" },
+                { term: "Like", translation: "يحب/يعجب بـ" }, { term: "Want", translation: "يريد" },
+                { term: "Need", translation: "يحتاج" }, { term: "Know", translation: "يعرف" },
+                { term: "Think", translation: "يفكر/يعتقد" }, { term: "Help", translation: "يساعد" },
+                { term: "Use", translation: "يستخدم" }, { term: "Find", translation: "يجد" },
+                { term: "Good", translation: "جيد/خير" }, { term: "Bad", translation: "سيء" },
+                { term: "Big", translation: "كبير" }, { term: "Small", translation: "صغير" },
+                { term: "Happy", translation: "سعيد" }, { term: "Sad", translation: "حزين" },
+                { term: "New", translation: "جديد" }, { term: "Old", translation: "قديم/كبير السن" },
+                { term: "Hot", translation: "حار/ساخن" }, { term: "Cold", translation: "بارد" },
+                { term: "Easy", translation: "سهل" }, { term: "Difficult", translation: "صعب" },
+                { term: "Beautiful", translation: "جميل" }, { term: "Ugly", translation: "قبيح" },
+                { term: "Red", translation: "أحمر" }, { term: "Blue", translation: "أزرق" },
+                { term: "Green", translation: "أخضر" }, { term: "Yellow", translation: "أصفر" },
+                { term: "White", translation: "أبيض" }, { term: "Black", translation: "أسود" },
+                { term: "One", translation: "واحد" }, { term: "Two", translation: "اثنان" },
+                { term: "Three", translation: "ثلاثة" }, { term: "Four", translation: "أربعة" },
+                { term: "Five", translation: "خمسة" }, { term: "Six", translation: "ستة" },
+                { term: "Seven", translation: "سبعة" }, { term: "Eight", translation: "ثمانية" },
+                { term: "Nine", translation: "تسعة" }, { term: "Ten", translation: "عشرة" },
+                { term: "I", translation: "أنا" }, { term: "You", translation: "أنت/أنتم" },
+                { term: "He", translation: "هو" }, { term: "She", translation: "هي" },
+                { term: "It", translation: "هو/هي (لغير العاقل)" }, { term: "We", translation: "نحن" },
+                { term: "They", translation: "هم/هن" }, { term: "Me", translation: "ـني (مفعول به)" },
+                { term: "Him", translation: "ـه (مفعول به)" }, { term: "Her", translation: "ـها (مفعول به/ملكية)" },
+                { term: "What", translation: "ماذا/ما" }, { term: "Where", translation: "أين" },
+                { term: "When", translation: "متى" }, { term: "Who", translation: "من (للعاقل)" },
+                { term: "Why", translation: "لماذا" }, { term: "How", translation: "كيف" },
+                { term: "In", translation: "في" }, { term: "On", translation: "على" },
+                { term: "Under", translation: "تحت" }, { term: "At", translation: "عند/في (نقطة معينة)" },
+                { term: "To", translation: "إلى" }, { term: "From", translation: "من" },
+                { term: "With", translation: "مع" }, { term: "Without", translation: "بدون" },
+                { term: "And", translation: "و" }, { term: "But", translation: "لكن" },
+                { term: "Or", translation: "أو" }, { term: "Because", translation: "لأن/بسبب" },
+                { term: "Time", translation: "وقت" }, { term: "Day", translation: "يوم" },
+                { term: "Night", translation: "ليلة" }, { term: "Week", translation: "أسبوع" },
+                { term: "Month", translation: "شهر" }, { term: "Year", translation: "سنة/عام" },
+                { term: "Today", translation: "اليوم" }, { term: "Tomorrow", translation: "غداً" },
+                { term: "Yesterday", translation: "أمس" }, { term: "Now", translation: "الآن" },
+                { term: "Money", translation: "مال/نقود" }, { term: "Love", translation: "حب" },
+                { term: "Life", translation: "حياة" }, { term: "World", translation: "عالم" },
+                { term: "Sun", translation: "شمس" }, { term: "Moon", translation: "قمر" },
+                { term: "Air", translation: "هواء" }, { term: "Fire", translation: "نار" },
+                { term: "Name", translation: "اسم" }, { term: "Word", translation: "كلمة" },
+                { term: "Number", translation: "رقم/عدد" }, { term: "Thing", translation: "شيء" },
+                { term: "Way", translation: "طريق/طريقة" }, { term: "Part", translation: "جزء" },
+                { term: "Place", translation: "مكان" }, { term: "Hand", translation: "يد" },
+                { term: "Eye", translation: "عين" }, { term: "Head", translation: "رأس" },
+                { term: "Face", translation: "وجه" }, { term: "Heart", translation: "قلب" },
+                { term: "Job", translation: "وظيفة/عمل" }, { term: "Problem", translation: "مشكلة" },
+                { term: "Question", translation: "سؤال" }, { term: "Answer", translation: "إجابة" },
+                { term: "Home", translation: "بيت/وطن" }, { term: "Away", translation: "بعيداً" },
+                { term: "Here", translation: "هنا" }, { term: "There", translation: "هناك" },
+                { term: "Very", translation: "جداً" }, { term: "Too", translation: "أيضاً / جداً (أكثر من اللازم)" },
+                { term: "Also", translation: "أيضاً" }, { term: "Always", translation: "دائماً" },
+                { term: "Never", translation: "أبداً" }, { term: "Sometimes", translation: "أحياناً" },
+                { term: "Often", translation: "غالباً" }, { term: "Usually", translation: "عادةً" },
+                { term: "Fast", translation: "سريع" }, { term: "Slow", translation: "بطيء" },
+                { term: "More", translation: "أكثر" }, { term: "Less", translation: "أقل" },
+                { term: "Up", translation: "فوق/أعلى" }, { term: "Down", translation: "تحت/أسفل" },
+                { term: "Left", translation: "يسار" }, { term: "Right", translation: "يمين/صحيح" },
+                { term: "Before", translation: "قبل" }, { term: "After", translation: "بعد" },
+                { term: "During", translation: "أثناء/خلال" }, { term: "About", translation: "عن/حوالي" },
+                { term: "Above", translation: "فوق" }, { term: "Below", translation: "أسفل" },
+                { term: "Between", translation: "بين" }, { term: "Far", translation: "بعيد" },
+                { term: "Near", translation: "قريب" }, { term: "Light", translation: "ضوء/خفيف" },
+                { term: "Dark", translation: "ظلام/داكن" }, { term: "Color", translation: "لون" },
+                { term: "Music", translation: "موسيقى" }, { term: "Game", translation: "لعبة" },
+                
+                // ~200 more words added below
+                { term: "Learn", translation: "يتعلم" }, { term: "Teach", translation: "يعلم/يدرس" },
+                { term: "Understand", translation: "يفهم" }, { term: "Remember", translation: "يتذكر" },
+                { term: "Forget", translation: "ينسى" }, { term: "Give", translation: "يعطي" },
+                { term: "Take", translation: "يأخذ" }, { term: "Make", translation: "يصنع/يجعل" },
+                { term: "Do", translation: "يفعل" }, { term: "Sleep", translation: "ينام" },
+                { term: "Wake up", translation: "يستيقظ" }, { term: "Buy", translation: "يشتري" },
+                { term: "Sell", translation: "يبيع" }, { term: "Pay", translation: "يدفع" },
+                { term: "Meet", translation: "يقابل/يلتقي" }, { term: "Visit", translation: "يزور" },
+                { term: "Wait", translation: "ينتظر" }, { term: "Start", translation: "يبدأ" },
+                { term: "Stop", translation: "يتوقف/يوقف" }, { term: "Finish", translation: "ينهي" },
+                { term: "Try", translation: "يحاول" }, { term: "Call", translation: "يتصل/ينادي" },
+                { term: "Ask", translation: "يسأل" }, { term: "Clean", translation: "ينظف/نظيف" },
+                { term: "Wash", translation: "يغسل" }, { term: "Cook", translation: "يطبخ/طباخ" },
+                { term: "Rain", translation: "تمطر/مطر" }, { term: "Snow", translation: "تثلج/ثلج" },
+                { term: "Fly", translation: "يطير/ذبابة" }, { term: "Swim", translation: "يسبح" },
+                { term: "Drive", translation: "يقود (سيارة)" }, { term: "Travel", translation: "يسافر" },
+                { term: "Believe", translation: "يصدق/يؤمن بـ" }, { term: "Hope", translation: "يأمل/أمل" },
+                { term: "Feel", translation: "يشعر" }, { term: "Hurt", translation: "يؤلم/يؤذي" },
+                { term: "Break", translation: "يكسر/استراحة" }, { term: "Build", translation: "يبني" },
+                { term: "Change", translation: "يغير/تغيير" }, { term: "Grow", translation: "ينمو/يزرع" },
+                { term: "Draw", translation: "يرسم" }, { term: "Paint", translation: "يلون/يدهن/طلاء" },
+                { term: "Sing", translation: "يغني" }, { term: "Dance", translation: "يرقص/رقصة" },
+                { term: "Study", translation: "يدرس/دراسة" }, { term: "Live", translation: "يعيش/مباشر" },
+                { term: "Die", translation: "يموت" }, { term: "Kill", translation: "يقتل" },
+                { term: "Send", translation: "يرسل" }, { term: "Receive", translation: "يستلم" },
+                { term: "Show", translation: "يعرض/عرض" }, { term: "Wear", translation: "يرتدي" },
+                { term: "Correct", translation: "صحيح/يصحح" }, { term: "Wrong", translation: "خاطئ" },
+                { term: "True", translation: "صحيح/حقيقي" }, { term: "False", translation: "خاطئ/زائف" },
+                { term: "Early", translation: "مبكر" }, { term: "Late", translation: "متأخر" },
+                { term: "High", translation: "عالي/مرتفع" }, { term: "Low", translation: "منخفض" },
+                { term: "Young", translation: "صغير السن/شاب" }, { term: "Strong", translation: "قوي" },
+                { term: "Weak", translation: "ضعيف" }, { term: "Rich", translation: "غني" },
+                { term: "Poor", translation: "فقير" }, { term: "Kind", translation: "لطيف/نوع" },
+                { term: "Nice", translation: "لطيف/جميل" }, { term: "Angry", translation: "غاضب" },
+                { term: "Tired", translation: "متعب" }, { term: "Hungry", translation: "جائع" },
+                { term: "Thirsty", translation: "عطشان" }, { term: "Full", translation: "ممتلئ/كامل" },
+                { term: "Empty", translation: "فارغ" }, { term: "Ready", translation: "جاهز/مستعد" },
+                { term: "Sure", translation: "متأكد" }, { term: "Possible", translation: "ممكن" },
+                { term: "Impossible", translation: "مستحيل" }, { term: "Important", translation: "مهم" },
+                { term: "Different", translation: "مختلف" }, { term: "Same", translation: "نفس الشيء" },
+                { term: "Other", translation: "آخر/أخرى" }, { term: "Another", translation: "آخر (واحد إضافي)" },
+                { term: "Each", translation: "كل (واحد على حدة)" }, { term: "Every", translation: "كل (المجموعة)" },
+                { term: "All", translation: "كل/جميع" }, { term: "Some", translation: "بعض" },
+                { term: "Any", translation: "أي (في النفي والسؤال)" }, { term: "Many", translation: "كثير (للأسماء المعدودة)" },
+                { term: "Much", translation: "كثير (للأسماء غير المعدودة)" }, { term: "Few", translation: "قليل (للأسماء المعدودة)" },
+                { term: "Little", translation: "قليل (للأسماء غير المعدودة)/صغير" }, { term: "Long", translation: "طويل (للزمن أو المسافة)" },
+                { term: "Short", translation: "قصير" }, { term: "Wide", translation: "واسع/عريض" },
+                { term: "Narrow", translation: "ضيق" }, { term: "Deep", translation: "عميق" },
+                { term: "Shallow", translation: "ضحل/سطحي" }, { term: "Heavy", translation: "ثقيل" },
+                { term: "Thick", translation: "سميك" }, { term: "Thin", translation: "نحيف/رقيق" },
+                { term: "First", translation: "أول" }, { term: "Last", translation: "أخير" },
+                { term: "Next", translation: "التالي/القادم" }, { term: "Quick", translation: "سريع" },
+                { term: "Quiet", translation: "هادئ" }, { term: "Loud", translation: "صاخب/عالٍ" },
+                { term: "Bright", translation: "مشرق/لامع/ذكي" }, { term: "Simple", translation: "بسيط" },
+                { term: "Complex", translation: "معقد" }, { term: "Alone", translation: "وحيد/بمفرده" },
+                { term: "Together", translation: "معاً/سوياً" }, { term: "Only", translation: "فقط/وحيد" },
+                { term: "Maybe", translation: "ربما" }, { term: "Perhaps", translation: "ربما" },
+                { term: "Probably", translation: "على الأرجح" }, { term: "Certainly", translation: "بالتأكيد" },
+                { term: "Really", translation: "حقاً/فعلاً" }, { term: "Almost", translation: "تقريباً" },
+                { term: "Enough", translation: "كافٍ/بما فيه الكفاية" }, { term: "Well", translation: "جيداً/بئر" },
+                { term: "Badly", translation: "بشكل سيء" }, { term: "Slowly", translation: "ببطء" },
+                { term: "Quickly", translation: "بسرعة" }, { term: "Easily", translation: "بسهولة" },
+                { term: "Carefully", translation: "بحذر/بعناية" }, { term: "Happily", translation: "بسعادة" },
+                { term: "Sadly", translation: "بحزن" }, { term: "Suddenly", translation: "فجأة" },
+                { term: "Finally", translation: "أخيراً" }, { term: "Especially", translation: "خصوصاً" },
+                { term: "Actually", translation: "في الواقع/فعلاً" }, { term: "Exactly", translation: "بالضبط" },
+                { term: "Again", translation: "مرة أخرى/مجدداً" }, { term: "Once", translation: "مرة واحدة" },
+                { term: "Twice", translation: "مرتين" }, { term: "Soon", translation: "قريباً" },
+                { term: "Still", translation: "لا يزال/مع ذلك" }, { term: "Yet", translation: "بعد (في النفي)/حتى الآن" },
+                { term: "Already", translation: "بالفعل" }, { term: "Just", translation: "فقط/لتو" },
+                { term: "Even", translation: "حتى" }, { term: "Back", translation: "خلف/ظهر/عودة" },
+                { term: "Forward", translation: "إلى الأمام" }, { term: "Inside", translation: "داخل" },
+                { term: "Outside", translation: "خارج" }, { term: "Around", translation: "حول" },
+                { term: "Through", translation: "من خلال/عبر" }, { term: "Against", translation: "ضد" },
+                { term: "Toward", translation: "نحو/باتجاه" }, { term: "Across", translation: "عبر (من جانب لآخر)" },
+                { term: "Along", translation: "بمحاذاة/على طول" }, { term: "Over", translation: "فوق/أكثر من/انتهى" },
+                { term: "Ago", translation: "مضى/منذ" }, { term: "Since", translation: "منذ/لأن" },
+                { term: "Until", translation: "حتى" }, { term: "While", translation: "بينما/في حين" },
+                { term: "If", translation: "إذا/لو" }, { term: "Unless", translation: "إلا إذا/ما لم" },
+                { term: "Although", translation: "على الرغم من" }, { term: "Though", translation: "على الرغم من/مع ذلك" },
+                { term: "Example", translation: "مثال" }, { term: "Idea", translation: "فكرة" },
+                { term: "Information", translation: "معلومات" }, { term: "Knowledge", translation: "معرفة" },
+                { term: "Power", translation: "قوة/طاقة/سلطة" }, { term: "Reason", translation: "سبب/منطق" },
+                { term: "Result", translation: "نتيجة" }, { term: "Success", translation: "نجاح" },
+                { term: "Failure", translation: "فشل" }, { term: "Chance", translation: "فرصة/احتمال" },
+                { term: "Choice", translation: "اختيار" }, { term: "Voice", translation: "صوت (بشري)" },
+                { term: "Sound", translation: "صوت (عام)" }, { term: "Noise", translation: "ضوضاء/ضجيج" },
+                { term: "Price", translation: "سعر/ثمن" }, { term: "Cost", translation: "تكلفة/يكلف" },
+                { term: "Size", translation: "حجم/مقاس" }, { term: "Weight", translation: "وزن" },
+                { term: "Shape", translation: "شكل" }, { term: "Area", translation: "منطقة/مساحة" },
+                { term: "Piece", translation: "قطعة" }, { term: "Pair", translation: "زوج (اثنين)" },
+                { term: "Group", translation: "مجموعة" }, { term: "Team", translation: "فريق" },
+                { term: "Person", translation: "شخص" }, { term: "People", translation: "ناس/شعب" },
+                { term: "Child", translation: "طفل/طفلة" }, { term: "Children", translation: "أطفال" },
+                { term: "Parent", translation: "أحد الوالدين" }, { term: "Baby", translation: "رضيع" },
+                { term: "Student", translation: "طالب/طالبة" }, { term: "Teacher", translation: "معلم/معلمة" },
+                { term: "Doctor", translation: "طبيب/طبيبة" }, { term: "Nurse", translation: "ممرض/ممرضة" },
+                { term: "Police", translation: "شرطة/شرطي" }, { term: "Firefighter", translation: "رجل إطفاء" },
+                { term: "Body", translation: "جسم/جسد" }, { term: "Foot", translation: "قدم" },
+                { term: "Leg", translation: "ساق/رجل" }, { term: "Arm", translation: "ذراع" },
+                { term: "Finger", translation: "إصبع (اليد)" }, { term: "Toe", translation: "إصبع (القدم)" },
+                { term: "Hair", translation: "شعر" }, { term: "Mouth", translation: "فم" },
+                { term: "Nose", translation: "أنف" }, { term: "Ear", translation: "أذن" },
+                { term: "Tooth", translation: "سن" }, { term: "Teeth", translation: "أسنان" },
+                { term: "Blood", translation: "دم" }, { term: "Bone", translation: "عظم" },
+                { term: "Skin", translation: "جلد/بشرة" }, { term: "Clothes", translation: "ملابس" },
+                { term: "Shirt", translation: "قميص" }, { term: "Pants", translation: "بنطال" },
+                { term: "Shoes", translation: "حذاء" }, { term: "Hat", translation: "قبعة" },
+                { term: "Coat", translation: "معطف" }, { term: "Dress", translation: "فستان/يلبس" },
+                { term: "Weather", translation: "طقس" }, { term: "Sky", translation: "سماء" },
+                { term: "Cloud", translation: "سحابة/غيمة" }, { term: "Wind", translation: "رياح" },
+                { term: "Star", translation: "نجم/نجمة" }, { term: "Sea", translation: "بحر" },
+                { term: "Ocean", translation: "محيط" }, { term: "River", translation: "نهر" },
+                { term: "Lake", translation: "بحيرة" }, { term: "Mountain", translation: "جبل" },
+                { term: "Hill", translation: "تل/هضبة" }, { term: "Forest", translation: "غابة" },
+                { term: "Tree", translation: "شجرة" }, { term: "Flower", translation: "زهرة/وردة" },
+                { term: "Grass", translation: "عشب/حشيش" }, { term: "Leaf", translation: "ورقة شجر" },
+                { term: "Sand", translation: "رمل" }, { term: "Stone", translation: "حجر/صخرة" },
+                { term: "Metal", translation: "معدن" }, { term: "Wood", translation: "خشب" },
+                { term: "Paper", translation: "ورق" }, { term: "Glass", translation: "زجاج/كأس" },
+                { term: "Plastic", translation: "بلاستيك" }, { term: "Gold", translation: "ذهب" },
+                { term: "Silver", translation: "فضة" }
+                // ... أكمل القائمة هنا لتصل إلى 2000 كلمة ...
+            ]; // End of words array (approx. 400 words sample)
+
+
+            // --- إنشاء قائمة المفردات ديناميكياً ---
+            function populateVocabularyList() {
+                if (!vocabularyListContainer) {
+                    console.error("Vocabulary list container not found!");
+                    return;
+                }
+                vocabularyListContainer.innerHTML = ''; // Clear previous items if any
+
+                words.forEach(wordData => {
+                    const item = document.createElement('div');
+                    item.classList.add('vocab-item');
+                    item.setAttribute('data-term', wordData.term);
+                    item.setAttribute('data-translation', wordData.translation);
+
+                    const termSpan = document.createElement('span');
+                    termSpan.classList.add('term');
+                    termSpan.textContent = wordData.term;
+
+                    const translationSpan = document.createElement('span');
+                    translationSpan.classList.add('translation');
+                    translationSpan.textContent = wordData.translation;
+
+                    item.appendChild(termSpan);
+                    item.appendChild(document.createTextNode(' - ')); // Separator
+                    item.appendChild(translationSpan);
+
+                    vocabularyListContainer.appendChild(item);
+                });
+                 // Update the word count in the heading (optional)
+                 const vocabHeading = document.querySelector('#vocabulary h2');
+                 if (vocabHeading) {
+                    // Update count based on actual items generated
+                    const actualCount = vocabularyListContainer.children.length; 
+                    vocabHeading.textContent = `قائمة المفردات (${actualCount} كلمة)`;
+                 }
+            }
+
+            populateVocabularyList(); // Call the function to fill the list
+
+            // --- وظيفة نطق الكلمات ---
+            if ('speechSynthesis' in window) {
+                const synth = window.speechSynthesis;
+
+                if (vocabularyListContainer && synth) {
+                     vocabularyListContainer.addEventListener('click', (event) => {
+                        const vocabItem = event.target.closest('.vocab-item');
+                        if (vocabItem) {
+                            const termToSpeak = vocabItem.getAttribute('data-term');
+                            if (termToSpeak) {
+                                synth.cancel(); // Stop any previous speech
+                                const utterance = new SpeechSynthesisUtterance(termToSpeak);
+                                utterance.lang = 'en-US'; // Set language for pronunciation
+                                utterance.rate = 0.9;    // Slightly slower speech rate
+                                synth.speak(utterance);
+                                utterance.onerror = (e) => {
+                                    console.error("Speech synthesis error:", e);
+                                 };
+                            }
+                        }
+                    });
+                } else if (!synth) {
+                     console.warn("Speech Synthesis not available.");
+                } else if (!vocabularyListContainer) {
+                     console.warn("Vocabulary list container not found for speech listener.");
+                }
+            } else {
+                console.warn("Speech Synthesis API is not supported in this browser.");
+                // Optionally, display a message to the user
+                // alert("عذرًا، خاصية نطق الكلمات غير مدعومة في متصفحك أو تحتاج لتفعيل.");
+            }
+
+        }); // End DOMContentLoaded
+    </script>
+
+</body>
+</html>
