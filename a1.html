@@ -1,0 +1,1163 @@
+import React, { useState } from 'react';
+
+// بيانات الدروس
+const lessons = [
+    {
+        id: 1,
+        title: 'الدرس 1: التحيات والتعارف',
+        arabicTitle: 'التحيات والتعارف',
+        level: 'مبتدئ',
+        content: {
+            vocabulary: [
+                { english: 'Hello', arabic: 'مرحباً' },
+                { english: 'Hi', arabic: 'أهلاً' },
+                { english: 'Good morning', arabic: 'صباح الخير' },
+                { english: 'Good afternoon', arabic: 'مساء الخير (بعد الظهر)' },
+                { english: 'Good evening', arabic: 'مساء الخير (مساءً)' },
+                { english: 'Good night', arabic: 'تصبح على خير' },
+                { english: 'Goodbye', arabic: 'مع السلامة' },
+                { english: 'My name is...', arabic: 'اسمي هو...' },
+                { english: 'What is your name?', arabic: 'ما اسمك؟' },
+                { english: 'Nice to meet you', arabic: 'سعيد بلقائك' },
+            ],
+            grammar: {
+                title: 'ضمائر الملكية (My)',
+                explanation: 'نستخدم "My" للإشارة إلى شيء يخصنا. مثال: My name is John.',
+                examples: [
+                    'My name is Sarah.',
+                    'My book is red.',
+                    'My car is new.',
+                ]
+            },
+            dialogue: [
+                'A: Hello, my name is Ali.',
+                'B: Hi Ali, nice to meet you. My name is Omar.',
+                'A: Nice to meet you too, Omar.'
+            ],
+            activity: {
+                type: 'fill_in_the_blanks',
+                question: 'أكمل الجملة: ____ name is Maria.',
+                answer: 'My'
+            }
+        }
+    },
+    {
+        id: 2,
+        title: 'الدرس 2: السؤال عن الحال',
+        arabicTitle: 'السؤال عن الحال',
+        level: 'مبتدئ',
+        content: {
+            vocabulary: [
+                { english: 'How are you?', arabic: 'كيف حالك؟' },
+                { english: 'I am fine', arabic: 'أنا بخير' },
+                { english: 'I am good', arabic: 'أنا جيد' },
+                { english: 'Thank you', arabic: 'شكراً لك' },
+                { english: 'You\'re welcome', arabic: 'على الرحب والسعة' },
+                { english: 'And you?', arabic: 'وأنت؟' },
+                { english: 'Please', arabic: 'من فضلك' },
+                { english: 'Excuse me', arabic: 'عفواً / معذرة' },
+            ],
+            grammar: {
+                title: 'الفعل "to be" (I am)',
+                explanation: 'نستخدم "I am" للتعبير عن الحال أو الهوية. مثال: I am happy.',
+                examples: [
+                    'I am happy.',
+                    'I am a student.',
+                    'I am from Egypt.',
+                ]
+            },
+            dialogue: [
+                'A: Good morning, how are you?',
+                'B: I am fine, thank you. And you?',
+                'A: I am good too. Thank you.'
+            ],
+            activity: {
+                type: 'fill_in_the_blanks',
+                question: 'أكمل الجملة: How ____ you?',
+                answer: 'are'
+            }
+        }
+    },
+    {
+        id: 3,
+        title: 'الدرس 3: الأرقام (0-10)',
+        arabicTitle: 'الأرقام (0-10)',
+        level: 'مبتدئ',
+        content: {
+            vocabulary: [
+                { english: 'Zero', arabic: 'صفر' },
+                { english: 'One', arabic: 'واحد' },
+                { english: 'Two', arabic: 'اثنان' },
+                { english: 'Three', arabic: 'ثلاثة' },
+                { english: 'Four', arabic: 'أربعة' },
+                { english: 'Five', arabic: 'خمسة' },
+                { english: 'Six', arabic: 'ستة' },
+                { english: 'Seven', arabic: 'سبعة' },
+                { english: 'Eight', arabic: 'ثمانية' },
+                { english: 'Nine', arabic: 'تسعة' },
+                { english: 'Ten', arabic: 'عشرة' },
+            ],
+            grammar: {
+                title: 'الأسماء المفردة والجمع',
+                explanation: 'معظم الأسماء في الإنجليزية تُجمع بإضافة "s" في النهاية. مثال: one apple, two apples.',
+                examples: [
+                    'One cat, two cats.',
+                    'Three books, four books.',
+                    'Five cars, six cars.',
+                ]
+            },
+            dialogue: [
+                'A: How many apples do you have?',
+                'B: I have two apples.',
+                'A: And how many oranges?',
+                'B: I have one orange.'
+            ],
+            activity: {
+                type: 'match',
+                question: 'وصل الرقم بالكلمة الصحيحة:',
+                pairs: [
+                    { left: '3', right: 'Three' },
+                    { left: '7', right: 'Seven' },
+                    { left: '10', right: 'Ten' }
+                ]
+            }
+        }
+    },
+    {
+        id: 4,
+        title: 'الدرس 4: الأرقام (11-20)',
+        arabicTitle: 'الأرقام (11-20)',
+        level: 'مبتدئ',
+        content: {
+            vocabulary: [
+                { english: 'Eleven', arabic: 'أحد عشر' },
+                { english: 'Twelve', arabic: 'اثنا عشر' },
+                { english: 'Thirteen', arabic: 'ثلاثة عشر' },
+                { english: 'Fourteen', arabic: 'أربعة عشر' },
+                { english: 'Fifteen', arabic: 'خمسة عشر' },
+                { english: 'Sixteen', arabic: 'ستة عشر' },
+                { english: 'Seventeen', arabic: 'سبعة عشر' },
+                { english: 'Eighteen', arabic: 'ثمانية عشر' },
+                { english: 'Nineteen', arabic: 'تسعة عشر' },
+                { english: 'Twenty', arabic: 'عشرون' },
+            ],
+            grammar: {
+                title: 'السؤال عن العمر',
+                explanation: 'للسؤال عن العمر نستخدم "How old are you?". للإجابة "I am [number] years old".',
+                examples: [
+                    'A: How old are you?',
+                    'B: I am twenty years old.',
+                    'A: How old is he?',
+                    'B: He is fifteen years old.',
+                ]
+            },
+            dialogue: [
+                'A: How many students are in the class?',
+                'B: There are eighteen students.',
+                'A: That\'s a lot!',
+                'B: Yes, it is.'
+            ],
+            activity: {
+                type: 'fill_in_the_blanks',
+                question: 'أكمل الجملة: I have ____ books. (14)',
+                answer: 'fourteen'
+            }
+        }
+    },
+    {
+        id: 5,
+        title: 'الدرس 5: الفعل "to be" (أنا، أنت، هو، هي)',
+        arabicTitle: 'الفعل "to be" (أنا، أنت، هو، هي)',
+        level: 'مبتدئ',
+        content: {
+            vocabulary: [
+                { english: 'I am', arabic: 'أنا أكون' },
+                { english: 'You are', arabic: 'أنت تكون' },
+                { english: 'He is', arabic: 'هو يكون' },
+                { english: 'She is', arabic: 'هي تكون' },
+                { english: 'It is', arabic: 'هو/هي تكون (لغير العاقل)' },
+                { english: 'We are', arabic: 'نحن نكون' },
+                { english: 'They are', arabic: 'هم/هن يكونون' },
+                { english: 'Student', arabic: 'طالب/ة' },
+                { english: 'Teacher', arabic: 'معلم/ة' },
+                { english: 'Doctor', arabic: 'طبيب/ة' },
+            ],
+            grammar: {
+                title: 'تصريف الفعل "to be"',
+                explanation: 'الفعل "to be" يتغير شكله حسب الفاعل. I am, You are, He/She/It is, We are, They are.',
+                examples: [
+                    'I am a student.',
+                    'You are happy.',
+                    'He is a doctor.',
+                    'She is beautiful.',
+                    'It is a cat.',
+                    'We are friends.',
+                    'They are teachers.'
+                ]
+            },
+            dialogue: [
+                'A: Are you a teacher?',
+                'B: No, I am a student.',
+                'A: Is he a doctor?',
+                'B: Yes, he is.'
+            ],
+            activity: {
+                type: 'fill_in_the_blanks',
+                question: 'أكمل الجملة: She ____ happy.',
+                answer: 'is'
+            }
+        }
+    },
+    {
+        id: 6,
+        title: 'الدرس 6: الفعل "to have" (لدي، عندك، لديه، لديها)',
+        arabicTitle: 'الفعل "to have" (لدي، عندك، لديه، لديها)',
+        level: 'مبتدئ',
+        content: {
+            vocabulary: [
+                { english: 'I have', arabic: 'لديّ' },
+                { english: 'You have', arabic: 'لديك' },
+                { english: 'He has', arabic: 'لديه' },
+                { english: 'She has', arabic: 'لديها' },
+                { english: 'It has', arabic: 'لديه/لديها (لغير العاقل)' },
+                { english: 'We have', arabic: 'لدينا' },
+                { english: 'They have', arabic: 'لديهم/لديهن' },
+                { english: 'Book', arabic: 'كتاب' },
+                { english: 'Pen', arabic: 'قلم' },
+                { english: 'Car', arabic: 'سيارة' },
+            ],
+            grammar: {
+                title: 'تصريف الفعل "to have"',
+                explanation: 'الفعل "to have" يتغير شكله حسب الفاعل. I/You/We/They have, He/She/It has.',
+                examples: [
+                    'I have a book.',
+                    'You have a pen.',
+                    'He has a car.',
+                    'She has a cat.',
+                    'It has four legs.',
+                    'We have many friends.',
+                    'They have new phones.'
+                ]
+            },
+            dialogue: [
+                'A: Do you have a pen?',
+                'B: Yes, I have a pen.',
+                'A: Does she have a car?',
+                'B: No, she doesn\'t have a car.'
+            ],
+            activity: {
+                type: 'fill_in_the_blanks',
+                question: 'أكمل الجملة: He ____ a new car.',
+                answer: 'has'
+            }
+        }
+    },
+    {
+        id: 7,
+        title: 'الدرس 7: ضمائر الفاعل',
+        arabicTitle: 'ضمائر الفاعل',
+        level: 'مبتدئ',
+        content: {
+            vocabulary: [
+                { english: 'I', arabic: 'أنا' },
+                { english: 'You', arabic: 'أنت/أنتم' },
+                { english: 'He', arabic: 'هو' },
+                { english: 'She', arabic: 'هي' },
+                { english: 'It', arabic: 'هو/هي (لغير العاقل)' },
+                { english: 'We', arabic: 'نحن' },
+                { english: 'They', arabic: 'هم/هن' },
+            ],
+            grammar: {
+                title: 'استخدام ضمائر الفاعل',
+                explanation: 'ضمائر الفاعل تحل محل الاسم كفاعل في الجملة. تأتي قبل الفعل.',
+                examples: [
+                    'I study English.',
+                    'You are smart.',
+                    'He plays football.',
+                    'She sings beautifully.',
+                    'It is raining.',
+                    'We live in a big city.',
+                    'They work together.'
+                ]
+            },
+            dialogue: [
+                'A: Where are you from?',
+                'B: I am from Syria.',
+                'A: Is he a student?',
+                'B: Yes, he is.'
+            ],
+            activity: {
+                type: 'fill_in_the_blanks',
+                question: 'أكمل الجملة: My sister is happy. ____ is smiling.',
+                answer: 'She'
+            }
+        }
+    },
+    {
+        id: 8,
+        title: 'الدرس 8: الأسماء الشائعة (أشخاص)',
+        arabicTitle: 'الأسماء الشائعة (أشخاص)',
+        level: 'مبتدئ',
+        content: {
+            vocabulary: [
+                { english: 'Man', arabic: 'رجل' },
+                { english: 'Woman', arabic: 'امرأة' },
+                { english: 'Boy', arabic: 'ولد' },
+                { english: 'Girl', arabic: 'فتاة' },
+                { english: 'Child', arabic: 'طفل' },
+                { english: 'Friend', arabic: 'صديق/ة' },
+                { english: 'Family', arabic: 'عائلة' },
+                { english: 'Person', arabic: 'شخص' },
+                { english: 'People', arabic: 'أشخاص' },
+            ],
+            grammar: {
+                title: 'أدوات التعريف والتنكير (a/an)',
+                explanation: 'نستخدم "a" قبل الأسماء التي تبدأ بحرف ساكن، و "an" قبل الأسماء التي تبدأ بحرف متحرك (a, e, i, o, u).',
+                examples: [
+                    'a man',
+                    'a boy',
+                    'an apple',
+                    'an elephant',
+                ]
+            },
+            dialogue: [
+                'A: Is he a boy or a man?',
+                'B: He is a boy.',
+                'A: How many people are there?',
+                'B: There are five people.'
+            ],
+            activity: {
+                type: 'fill_in_the_blanks',
+                question: 'أكمل الجملة: She is ____ woman.',
+                answer: 'a'
+            }
+        }
+    },
+    {
+        id: 9,
+        title: 'الدرس 9: الأسماء الشائعة (أماكن وأشياء)',
+        arabicTitle: 'الأسماء الشائعة (أماكن وأشياء)',
+        level: 'مبتدئ',
+        content: {
+            vocabulary: [
+                { english: 'House', arabic: 'منزل' },
+                { english: 'School', arabic: 'مدرسة' },
+                { english: 'City', arabic: 'مدينة' },
+                { english: 'Country', arabic: 'بلد' },
+                { english: 'Table', arabic: 'طاولة' },
+                { english: 'Chair', arabic: 'كرسي' },
+                { english: 'Door', arabic: 'باب' },
+                { english: 'Window', arabic: 'نافذة' },
+                { english: 'Phone', arabic: 'هاتف' },
+            ],
+            grammar: {
+                title: 'الجمع المنتظم وغير المنتظم',
+                explanation: 'معظم الأسماء تُجمع بإضافة "s". بعض الأسماء لها جمع غير منتظم مثل: man - men, woman - women, child - children.',
+                examples: [
+                    'one chair, two chairs',
+                    'one house, many houses',
+                    'one man, two men',
+                    'one child, many children'
+                ]
+            },
+            dialogue: [
+                'A: Is this your house?',
+                'B: Yes, it is my house.',
+                'A: Do you have a new phone?',
+                'B: Yes, I do.'
+            ],
+            activity: {
+                type: 'fill_in_the_blanks',
+                question: 'أكمل الجملة: I see two ____. (child)',
+                answer: 'children'
+            }
+        }
+    },
+    {
+        id: 10,
+        title: 'الدرس 10: الصفات (وصف الأشياء)',
+        arabicTitle: 'الصفات (وصف الأشياء)',
+        level: 'مبتدئ',
+        content: {
+            vocabulary: [
+                { english: 'Big', arabic: 'كبير' },
+                { english: 'Small', arabic: 'صغير' },
+                { english: 'New', arabic: 'جديد' },
+                { english: 'Old', arabic: 'قديم' },
+                { english: 'Happy', arabic: 'سعيد' },
+                { english: 'Sad', arabic: 'حزين' },
+                { english: 'Good', arabic: 'جيد' },
+                { english: 'Bad', arabic: 'سيء' },
+                { english: 'Beautiful', arabic: 'جميل' },
+                { english: 'Ugly', arabic: 'قبيح' },
+            ],
+            grammar: {
+                title: 'موقع الصفة في الجملة',
+                explanation: 'الصفة تأتي قبل الاسم الذي تصفه (a big house) أو بعد الفعل "to be" (The house is big).',
+                examples: [
+                    'a big car',
+                    'a small dog',
+                    'The car is big.',
+                    'The dog is small.',
+                ]
+            },
+            dialogue: [
+                'A: Is your house big or small?',
+                'B: My house is big.',
+                'A: Is she happy?',
+                'B: Yes, she is very happy.'
+            ],
+            activity: {
+                type: 'fill_in_the_blanks',
+                question: 'أكمل الجملة: This is a ____ book. (new)',
+                answer: 'new'
+            }
+        }
+    },
+    {
+        id: 11,
+        title: 'الدرس 11: أسئلة (What, Where)',
+        arabicTitle: 'أسئلة (What, Where)',
+        level: 'مبتدئ',
+        content: {
+            vocabulary: [
+                { english: 'What?', arabic: 'ماذا؟' },
+                { english: 'Where?', arabic: 'أين؟' },
+                { english: 'Is', arabic: 'يكون (للمفرد)' },
+                { english: 'Are', arabic: 'يكون (للجمع)' },
+                { english: 'From', arabic: 'من' },
+                { english: 'In', arabic: 'في' },
+                { english: 'On', arabic: 'على' },
+            ],
+            grammar: {
+                title: 'صياغة الأسئلة باستخدام What و Where',
+                explanation: 'What + is/are + subject? (للسؤال عن شيء). Where + is/are + subject? (للسؤال عن مكان).',
+                examples: [
+                    'What is this?',
+                    'Where are you from?',
+                    'What is your favorite color?',
+                    'Where is the book?',
+                ]
+            },
+            dialogue: [
+                'A: What is your name?',
+                'B: My name is Layla.',
+                'A: Where are you from, Layla?',
+                'B: I am from Saudi Arabia.'
+            ],
+            activity: {
+                type: 'fill_in_the_blanks',
+                question: 'أكمل الجملة: ____ is your phone? It is on the table.',
+                answer: 'Where'
+            }
+        }
+    },
+    {
+        id: 12,
+        title: 'الدرس 12: أسئلة (Who, When, Why)',
+        arabicTitle: 'أسئلة (Who, When, Why)',
+        level: 'مبتدئ',
+        content: {
+            vocabulary: [
+                { english: 'Who?', arabic: 'من؟' },
+                { english: 'When?', arabic: 'متى؟' },
+                { english: 'Why?', arabic: 'لماذا؟' },
+                { english: 'Because', arabic: 'لأن' },
+                { english: 'Morning', arabic: 'صباح' },
+                { english: 'Evening', arabic: 'مساء' },
+            ],
+            grammar: {
+                title: 'صياغة الأسئلة باستخدام Who, When, Why',
+                explanation: 'Who + is/are + subject? (للسؤال عن شخص). When + do/does + subject + verb? (للسؤال عن وقت). Why + do/does + subject + verb? (للسؤال عن سبب).',
+                examples: [
+                    'Who is he?',
+                    'When do you eat breakfast?',
+                    'Why are you sad?',
+                    'Who is your best friend?',
+                ]
+            },
+            dialogue: [
+                'A: Who is that man?',
+                'B: He is my brother.',
+                'A: When do you go to school?',
+                'B: I go to school in the morning.'
+            ],
+            activity: {
+                type: 'fill_in_the_blanks',
+                question: 'أكمل الجملة: ____ are you learning English? Because I want to travel.',
+                answer: 'Why'
+            }
+        }
+    },
+    {
+        id: 13,
+        title: 'الدرس 13: الأفعال اليومية (المضارع البسيط)',
+        arabicTitle: 'الأفعال اليومية (المضارع البسيط)',
+        level: 'مبتدئ',
+        content: {
+            vocabulary: [
+                { english: 'Eat', arabic: 'يأكل' },
+                { english: 'Drink', arabic: 'يشرب' },
+                { english: 'Sleep', arabic: 'ينام' },
+                { english: 'Wake up', arabic: 'يستيقظ' },
+                { english: 'Go', arabic: 'يذهب' },
+                { english: 'Work', arabic: 'يعمل' },
+                { english: 'Study', arabic: 'يدرس' },
+                { english: 'Read', arabic: 'يقرأ' },
+                { english: 'Write', arabic: 'يكتب' },
+            ],
+            grammar: {
+                title: 'المضارع البسيط (Present Simple)',
+                explanation: 'نستخدم المضارع البسيط للتعبير عن العادات والحقائق. نضيف "s" للفعل مع He/She/It.',
+                examples: [
+                    'I eat breakfast every morning.',
+                    'She drinks coffee.',
+                    'He works in a hospital.',
+                    'They study English.'
+                ]
+            },
+            dialogue: [
+                'A: What do you do in the morning?',
+                'B: I wake up, eat breakfast, and go to work.',
+                'A: Does he study English?',
+                'B: Yes, he studies every day.'
+            ],
+            activity: {
+                type: 'fill_in_the_blanks',
+                question: 'أكمل الجملة: He ____ (go) to school every day.',
+                answer: 'goes'
+            }
+        }
+    },
+    {
+        id: 14,
+        title: 'الدرس 14: الروتين اليومي',
+        arabicTitle: 'الروتين اليومي',
+        level: 'مبتدئ',
+        content: {
+            vocabulary: [
+                { english: 'Brush my teeth', arabic: 'أغسل أسناني' },
+                { english: 'Take a shower', arabic: 'أستحم' },
+                { english: 'Get dressed', arabic: 'أرتدي ملابسي' },
+                { english: 'Have breakfast/lunch/dinner', arabic: 'أتناول الفطور/الغداء/العشاء' },
+                { english: 'Go to bed', arabic: 'أذهب إلى الفراش' },
+                { english: 'Watch TV', arabic: 'أشاهد التلفاز' },
+                { english: 'Listen to music', arabic: 'أستمع إلى الموسيقى' },
+            ],
+            grammar: {
+                title: 'ظروف التكرار (Always, Usually, Sometimes)',
+                explanation: 'تأتي ظروف التكرار قبل الفعل الرئيسي (I always eat) أو بعد الفعل "to be" (She is always happy).',
+                examples: [
+                    'I always wake up at 7 AM.',
+                    'She usually watches TV in the evening.',
+                    'They sometimes go to the park.',
+                ]
+            },
+            dialogue: [
+                'A: What do you usually do on weekends?',
+                'B: I usually visit my family and watch TV.',
+                'A: Do you always have breakfast?',
+                'B: Yes, I always have breakfast.'
+            ],
+            activity: {
+                type: 'fill_in_the_blanks',
+                question: 'أكمل الجملة: I ____ (usually) go to school by bus.',
+                answer: 'usually'
+            }
+        }
+    },
+    {
+        id: 15,
+        title: 'الدرس 15: الطعام والشراب',
+        arabicTitle: 'الطعام والشراب',
+        level: 'مبتدئ',
+        content: {
+            vocabulary: [
+                { english: 'Water', arabic: 'ماء' },
+                { english: 'Milk', arabic: 'حليب' },
+                { english: 'Coffee', arabic: 'قهوة' },
+                { english: 'Tea', arabic: 'شاي' },
+                { english: 'Bread', arabic: 'خبز' },
+                { english: 'Rice', arabic: 'أرز' },
+                { english: 'Chicken', arabic: 'دجاج' },
+                { english: 'Fish', arabic: 'سمك' },
+                { english: 'Apple', arabic: 'تفاح' },
+                { english: 'Orange', arabic: 'برتقال' },
+            ],
+            grammar: {
+                title: 'الأسماء المعدودة وغير المعدودة',
+                explanation: 'الأسماء المعدودة يمكن عدها (one apple, two apples). الأسماء غير المعدودة لا يمكن عدها (water, rice).',
+                examples: [
+                    'I want an apple.',
+                    'I drink water every day.',
+                    'She eats rice.',
+                    'Do you like coffee?',
+                ]
+            },
+            dialogue: [
+                'A: What do you want to drink?',
+                'B: I want some water, please.',
+                'A: Do you like chicken?',
+                'B: Yes, I love chicken.'
+            ],
+            activity: {
+                type: 'fill_in_the_blanks',
+                question: 'أكمل الجملة: I need some ____. (milk)',
+                answer: 'milk'
+            }
+        }
+    },
+    {
+        id: 16,
+        title: 'الدرس 16: أفراد العائلة',
+        arabicTitle: 'أفراد العائلة',
+        level: 'مبتدئ',
+        content: {
+            vocabulary: [
+                { english: 'Father', arabic: 'أب' },
+                { english: 'Mother', arabic: 'أم' },
+                { english: 'Brother', arabic: 'أخ' },
+                { english: 'Sister', arabic: 'أخت' },
+                { english: 'Son', arabic: 'ابن' },
+                { english: 'Daughter', arabic: 'ابنة' },
+                { english: 'Grandfather', arabic: 'جد' },
+                { english: 'Grandmother', arabic: 'جدة' },
+                { english: 'Uncle', arabic: 'عم/خال' },
+                { english: 'Aunt', arabic: 'عمة/خالة' },
+            ],
+            grammar: {
+                title: 'صيغة الملكية (\'s)',
+                explanation: 'نضيف (\'s) للاسم للإشارة إلى الملكية. مثال: Ali\'s car (سيارة علي).',
+                examples: [
+                    'My father\'s name is Ahmed.',
+                    'This is my sister\'s book.',
+                    'My mother\'s car is red.',
+                ]
+            },
+            dialogue: [
+                'A: Do you have a brother?',
+                'B: Yes, I have one brother.',
+                'A: Is this your mother?',
+                'B: Yes, she is my mother.'
+            ],
+            activity: {
+                type: 'fill_in_the_blanks',
+                question: 'أكمل الجملة: This is my ____ (father) car.',
+                answer: 'father\'s'
+            }
+        }
+    },
+    {
+        id: 17,
+        title: 'الدرس 17: الألوان والأشكال',
+        arabicTitle: 'الألوان والأشكال',
+        level: 'مبتدئ',
+        content: {
+            vocabulary: [
+                { english: 'Red', arabic: 'أحمر' },
+                { english: 'Blue', arabic: 'أزرق' },
+                { english: 'Green', arabic: 'أخضر' },
+                { english: 'Yellow', arabic: 'أصفر' },
+                { english: 'Black', arabic: 'أسود' },
+                { english: 'White', arabic: 'أبيض' },
+                { english: 'Circle', arabic: 'دائرة' },
+                { english: 'Square', arabic: 'مربع' },
+                { english: 'Triangle', arabic: 'مثلث' },
+            ],
+            grammar: {
+                title: 'وصف الأشياء بالألوان',
+                explanation: 'تأتي الألوان قبل الاسم الذي تصفه. مثال: a red car (سيارة حمراء).',
+                examples: [
+                    'I have a blue pen.',
+                    'The sky is blue.',
+                    'This is a green apple.',
+                    'The table is square.'
+                ]
+            },
+            dialogue: [
+                'A: What color is your car?',
+                'B: My car is black.',
+                'A: Is the table round?',
+                'B: No, it is square.'
+            ],
+            activity: {
+                type: 'fill_in_the_blanks',
+                question: 'أكمل الجملة: The apple is ____. (red)',
+                answer: 'red'
+            }
+        }
+    },
+    {
+        id: 18,
+        title: 'الدرس 18: الحيوانات',
+        arabicTitle: 'الحيوانات',
+        level: 'مبتدئ',
+        content: {
+            vocabulary: [
+                { english: 'Dog', arabic: 'كلب' },
+                { english: 'Cat', arabic: 'قطة' },
+                { english: 'Bird', arabic: 'طائر' },
+                { english: 'Fish', arabic: 'سمكة' },
+                { english: 'Horse', arabic: 'حصان' },
+                { english: 'Cow', arabic: 'بقرة' },
+                { english: 'Lion', arabic: 'أسد' },
+                { english: 'Elephant', arabic: 'فيل' },
+            ],
+            grammar: {
+                title: 'استخدام "There is / There are"',
+                explanation: 'نستخدم "There is" للمفرد و "There are" للجمع للإشارة إلى وجود شيء ما. مثال: There is a cat. There are two dogs.',
+                examples: [
+                    'There is a dog in the garden.',
+                    'There are three birds on the tree.',
+                    'Is there a cat?',
+                    'Are there any fish?'
+                ]
+            },
+            dialogue: [
+                'A: Do you have a pet?',
+                'B: Yes, I have a cat.',
+                'A: Is there a dog in the house?',
+                'B: No, there isn\'t.'
+            ],
+            activity: {
+                type: 'fill_in_the_blanks',
+                question: 'أكمل الجملة: ____ two elephants in the zoo.',
+                answer: 'There are'
+            }
+        }
+    },
+    {
+        id: 19,
+        title: 'الدرس 19: حروف الجر للمكان',
+        arabicTitle: 'حروف الجر للمكان',
+        level: 'مبتدئ',
+        content: {
+            vocabulary: [
+                { english: 'In', arabic: 'في (داخل)' },
+                { english: 'On', arabic: 'على (فوق السطح)' },
+                { english: 'Under', arabic: 'تحت' },
+                { english: 'Next to', arabic: 'بجانب' },
+                { english: 'Behind', arabic: 'خلف' },
+                { english: 'In front of', arabic: 'أمام' },
+                { english: 'Between', arabic: 'بين' },
+                { english: 'Near', arabic: 'قريب من' },
+            ],
+            grammar: {
+                title: 'استخدام حروف الجر',
+                explanation: 'تستخدم حروف الجر لتحديد موقع الأشياء أو الأشخاص.',
+                examples: [
+                    'The book is on the table.',
+                    'The cat is under the chair.',
+                    'The school is next to the park.',
+                    'He is in the house.'
+                ]
+            },
+            dialogue: [
+                'A: Where is your phone?',
+                'B: It is in my bag.',
+                'A: Is the cat under the table?',
+                'B: No, it is on the chair.'
+            ],
+            activity: {
+                type: 'fill_in_the_blanks',
+                question: 'أكمل الجملة: The car is parked ____ the house. (in front of)',
+                answer: 'in front of'
+            }
+        }
+    },
+    {
+        id: 20,
+        title: 'الدرس 20: الوقت وأيام الأسبوع',
+        arabicTitle: 'الوقت وأيام الأسبوع',
+        level: 'مبتدئ',
+        content: {
+            vocabulary: [
+                { english: 'Monday', arabic: 'الاثنين' },
+                { english: 'Tuesday', arabic: 'الثلاثاء' },
+                { english: 'Wednesday', arabic: 'الأربعاء' },
+                { english: 'Thursday', arabic: 'الخميس' },
+                { english: 'Friday', arabic: 'الجمعة' },
+                { english: 'Saturday', arabic: 'السبت' },
+                { english: 'Sunday', arabic: 'الأحد' },
+                { english: 'Hour', arabic: 'ساعة' },
+                { english: 'Minute', arabic: 'دقيقة' },
+                { english: 'Second', arabic: 'ثانية' },
+            ],
+            grammar: {
+                title: 'السؤال عن الوقت',
+                explanation: 'للسؤال عن الوقت نستخدم "What time is it?". للإجابة "It is [time]".',
+                examples: [
+                    'What time is it? It is 3 o\'clock.',
+                    'I work on Monday and Tuesday.',
+                    'The meeting is at 10 AM.',
+                ]
+            },
+            dialogue: [
+                'A: What day is today?',
+                'B: Today is Wednesday.',
+                'A: What time do you finish work?',
+                'B: I finish work at 5 PM.'
+            ],
+            activity: {
+                type: 'fill_in_the_blanks',
+                question: 'أكمل الجملة: Tomorrow is ____. (Tuesday)',
+                answer: 'Tuesday'
+            }
+        }
+    },
+    {
+        id: 21,
+        title: 'الدرس 21: حوارات بسيطة (في المتجر)',
+        arabicTitle: 'حوارات بسيطة (في المتجر)',
+        level: 'مبتدئ',
+        content: {
+            vocabulary: [
+                { english: 'Shop', arabic: 'متجر' },
+                { english: 'Buy', arabic: 'يشتري' },
+                { english: 'Cost', arabic: 'يكلف' },
+                { english: 'How much?', arabic: 'كم الثمن؟' },
+                { english: 'I want...', arabic: 'أريد...' },
+                { english: 'Here you go', arabic: 'تفضل' },
+                { english: 'Anything else?', arabic: 'أي شيء آخر؟' },
+                { english: 'No, thank you', arabic: 'لا، شكراً لك' },
+            ],
+            grammar: {
+                title: 'استخدام "I want" و "I would like"',
+                explanation: '"I want" تستخدم للتعبير عن الرغبة. "I would like" أكثر تهذيباً.',
+                examples: [
+                    'I want an apple.',
+                    'I would like a coffee, please.',
+                    'What do you want to buy?',
+                ]
+            },
+            dialogue: [
+                'Customer: Hello, I want to buy an apple.',
+                'Shopkeeper: How many apples do you want?',
+                'Customer: One apple, please. How much does it cost?',
+                'Shopkeeper: It costs one dollar.',
+                'Customer: Here you go. Thank you.',
+                'Shopkeeper: You\'re welcome. Anything else?',
+                'Customer: No, thank you. Goodbye.',
+                'Shopkeeper: Goodbye!'
+            ],
+            activity: {
+                type: 'fill_in_the_blanks',
+                question: 'أكمل الجملة: ____ (How much) does this book cost?',
+                answer: 'How much'
+            }
+        }
+    },
+    {
+        id: 22,
+        title: 'الدرس 22: الاتجاهات',
+        arabicTitle: 'الاتجاهات',
+        level: 'مبتدئ',
+        content: {
+            vocabulary: [
+                { english: 'Left', arabic: 'يسار' },
+                { english: 'Right', arabic: 'يمين' },
+                { english: 'Straight', arabic: 'مباشرة' },
+                { english: 'Turn', arabic: 'استدر' },
+                { english: 'Go', arabic: 'اذهب' },
+                { english: 'Street', arabic: 'شارع' },
+                { english: 'Road', arabic: 'طريق' },
+                { english: 'Cross', arabic: 'اعبر' },
+            ],
+            grammar: {
+                title: 'الأوامر البسيطة',
+                explanation: 'نستخدم الفعل في صيغة المصدر لإعطاء الأوامر. مثال: Go straight.',
+                examples: [
+                    'Turn left at the corner.',
+                    'Go straight for two blocks.',
+                    'Cross the road carefully.',
+                ]
+            },
+            dialogue: [
+                'A: Excuse me, how can I get to the library?',
+                'B: Go straight, then turn right at the first street.',
+                'A: Thank you!',
+                'B: You\'re welcome.'
+            ],
+            activity: {
+                type: 'fill_in_the_blanks',
+                question: 'أكمل الجملة: ____ right at the traffic lights.',
+                answer: 'Turn'
+            }
+        }
+    },
+    {
+        id: 23,
+        title: 'الدرس 23: المشاعر',
+        arabicTitle: 'المشاعر',
+        level: 'مبتدئ',
+        content: {
+            vocabulary: [
+                { english: 'Happy', arabic: 'سعيد' },
+                { english: 'Sad', arabic: 'حزين' },
+                { english: 'Angry', arabic: 'غاضب' },
+                { english: 'Tired', arabic: 'متعب' },
+                { english: 'Excited', arabic: 'متحمس' },
+                { english: 'Bored', arabic: 'ملل' },
+                { english: 'Scared', arabic: 'خائف' },
+                { english: 'Surprised', arabic: 'مندهش' },
+            ],
+            grammar: {
+                title: 'وصف المشاعر باستخدام "to be"',
+                explanation: 'نستخدم الفعل "to be" مع الصفات لوصف المشاعر. مثال: I am happy.',
+                examples: [
+                    'She is sad today.',
+                    'He is angry about the news.',
+                    'Are you tired?',
+                    'They are excited for the trip.'
+                ]
+            },
+            dialogue: [
+                'A: Why are you so happy?',
+                'B: Because I passed my exam!',
+                'A: Are you tired?',
+                'B: Yes, I am very tired.'
+            ],
+            activity: {
+                type: 'fill_in_the_blanks',
+                question: 'أكمل الجملة: I am ____ because I have a lot of work. (tired)',
+                answer: 'tired'
+            }
+        }
+    },
+    {
+        id: 24,
+        title: 'الدرس 24: الطقس',
+        arabicTitle: 'الطقس',
+        level: 'مبتدئ',
+        content: {
+            vocabulary: [
+                { english: 'Sunny', arabic: 'مشمس' },
+                { english: 'Cloudy', arabic: 'غائم' },
+                { english: 'Rainy', arabic: 'ممطر' },
+                { english: 'Snowy', arabic: 'ثلجي' },
+                { english: 'Windy', arabic: 'عاصف' },
+                { english: 'Hot', arabic: 'حار' },
+                { english: 'Cold', arabic: 'بارد' },
+                { english: 'Warm', arabic: 'دافئ' },
+            ],
+            grammar: {
+                title: 'السؤال عن الطقس',
+                explanation: 'للسؤال عن الطقس نستخدم "What\'s the weather like?". للإجابة "It is [weather condition]".',
+                examples: [
+                    'What\'s the weather like today? It is sunny.',
+                    'It is cold in winter.',
+                    'Is it rainy outside?',
+                ]
+            },
+            dialogue: [
+                'A: What\'s the weather like today?',
+                'B: It\'s sunny and warm.',
+                'A: Is it cold in your city?',
+                'B: Sometimes, in winter it is very cold.'
+            ],
+            activity: {
+                type: 'fill_in_the_blanks',
+                question: 'أكمل الجملة: It is ____ today, so I need an umbrella. (rainy)',
+                answer: 'rainy'
+            }
+        }
+    },
+    {
+        id: 25,
+        title: 'الدرس 25: الهوايات والأنشطة',
+        arabicTitle: 'الهوايات والأنشطة',
+        level: 'مبتدئ',
+        content: {
+            vocabulary: [
+                { english: 'Read', arabic: 'يقرأ' },
+                { english: 'Play', arabic: 'يلعب' },
+                { english: 'Sing', arabic: 'يغني' },
+                { english: 'Dance', arabic: 'يرقص' },
+                { english: 'Draw', arabic: 'يرسم' },
+                { english: 'Cook', arabic: 'يطبخ' },
+                { english: 'Travel', arabic: 'يسافر' },
+                { english: 'Sport', arabic: 'رياضة' },
+            ],
+            grammar: {
+                title: 'التعبير عن الإعجاب وعدم الإعجاب (Like, Don\'t like)',
+                explanation: 'نستخدم "like" للتعبير عن الإعجاب، و "don\'t like" لعدم الإعجاب. يمكن أن يتبعها اسم أو فعل + ing.',
+                examples: [
+                    'I like reading books.',
+                    'She likes playing football.',
+                    'They don\'t like cooking.',
+                ]
+            },
+            dialogue: [
+                'A: What do you like to do in your free time?',
+                'B: I like to read and listen to music.',
+                'A: Do you like playing sports?',
+                'B: Yes, I like playing basketball.'
+            ],
+            activity: {
+                type: 'fill_in_the_blanks',
+                question: 'أكمل الجملة: He likes ____ (swim) in the sea.',
+                answer: 'swimming'
+            }
+        }
+    },
+];
+
+// المكون الرئيسي للتطبيق
+function App() {
+    // حالة لتتبع الدرس الحالي المعروض (null يعني عرض لوحة التحكم/قائمة الدروس)
+    const [currentLesson, setCurrentLesson] = useState(null);
+
+    // دالة للعودة إلى قائمة الدروس
+    const goToLessonList = () => {
+        setCurrentLesson(null);
+    };
+
+    // المكون الخاص بلوحة التحكم وقائمة الدروس
+    const Dashboard = () => (
+        <div className="text-center p-6">
+            <h2 className="text-3xl font-bold text-gray-800 mb-6">مرحباً بك في دورة الإنجليزية للمبتدئين!</h2>
+            <p className="text-lg text-gray-600 mb-8">
+                ابدأ رحلتك لتعلم اللغة الإنجليزية من الصفر. هذه الدورة مصممة خصيصًا للمبتدئين.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {lessons.map((lesson) => (
+                    <div
+                        key={lesson.id}
+                        className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 cursor-pointer transform hover:scale-105"
+                        onClick={() => setCurrentLesson(lesson)}
+                    >
+                        <h3 className="text-xl font-semibold text-indigo-700 mb-2">
+                            {lesson.title}
+                        </h3>
+                        <p className="text-gray-600 text-sm">المستوى: {lesson.level}</p>
+                        <button className="mt-4 bg-indigo-500 hover:bg-indigo-600 text-white py-2 px-4 rounded-md text-sm font-medium transition-colors duration-200">
+                            ابدأ الدرس
+                        </button>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+
+    // المكون الخاص بصفحة الدرس المفردة
+    const LessonDetail = ({ lesson, goBack }) => (
+        <div className="p-6 text-right">
+            <button
+                onClick={goBack}
+                className="mb-6 bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-4 rounded-md flex items-center transition-colors duration-200"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2 rtl:mr-2 rtl:ml-0" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
+                </svg>
+                العودة إلى الدروس
+            </button>
+
+            <h2 className="text-3xl font-bold text-gray-800 mb-6 border-b-2 pb-2 border-indigo-200">
+                {lesson.title}
+            </h2>
+
+            {/* قسم المفردات */}
+            <div className="mb-8 bg-blue-50 p-6 rounded-lg shadow-inner">
+                <h3 className="text-2xl font-semibold text-blue-700 mb-4">المفردات (Vocabulary)</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {lesson.content.vocabulary.map((vocab, index) => (
+                        <div key={index} className="flex justify-between items-center bg-blue-100 p-3 rounded-md shadow-sm">
+                            <span className="font-medium text-blue-900">{vocab.english}</span>
+                            <span className="text-gray-700">{vocab.arabic}</span>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            {/* قسم القواعد النحوية */}
+            <div className="mb-8 bg-green-50 p-6 rounded-lg shadow-inner">
+                <h3 className="text-2xl font-semibold text-green-700 mb-4">القواعد النحوية (Grammar)</h3>
+                <h4 className="text-xl font-medium text-green-800 mb-2">{lesson.content.grammar.title}</h4>
+                <p className="text-gray-700 mb-4">{lesson.content.grammar.explanation}</p>
+                <ul className="list-disc list-inside text-gray-700">
+                    {lesson.content.grammar.examples.map((example, index) => (
+                        <li key={index} className="mb-1">{example}</li>
+                    ))}
+                </ul>
+            </div>
+
+            {/* قسم الحوار */}
+            <div className="mb-8 bg-purple-50 p-6 rounded-lg shadow-inner">
+                <h3 className="text-2xl font-semibold text-purple-700 mb-4">الحوار (Dialogue)</h3>
+                {lesson.content.dialogue.map((line, index) => (
+                    <p key={index} className="mb-2 text-gray-700">{line}</p>
+                ))}
+            </div>
+
+            {/* قسم النشاط */}
+            {lesson.content.activity && (
+                <div className="mb-8 bg-yellow-50 p-6 rounded-lg shadow-inner">
+                    <h3 className="text-2xl font-semibold text-yellow-700 mb-4">النشاط (Activity)</h3>
+                    {lesson.content.activity.type === 'fill_in_the_blanks' && (
+                        <div>
+                            <p className="text-gray-700 mb-3">{lesson.content.activity.question}</p>
+                            <input
+                                type="text"
+                                placeholder="اكتب إجابتك هنا..."
+                                className="w-full p-3 border border-yellow-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                                // يمكنك إضافة منطق للتحقق من الإجابة هنا
+                                onChange={(e) => {
+                                    if (e.target.value.toLowerCase() === lesson.content.activity.answer.toLowerCase()) {
+                                        e.target.style.backgroundColor = '#d4edda'; // أخضر فاتح للجواب الصحيح
+                                    } else {
+                                        e.target.style.backgroundColor = '#f8d7da'; // أحمر فاتح للجواب الخاطئ
+                                    }
+                                }}
+                            />
+                            <p className="text-sm text-gray-500 mt-2">
+                                الإجابة الصحيحة: <span className="font-bold">{lesson.content.activity.answer}</span>
+                            </p>
+                        </div>
+                    )}
+                    {lesson.content.activity.type === 'match' && (
+                        <div>
+                            <p className="text-gray-700 mb-3">{lesson.content.activity.question}</p>
+                            <div className="grid grid-cols-2 gap-4">
+                                {lesson.content.activity.pairs.map((pair, index) => (
+                                    <div key={index} className="flex justify-between items-center bg-yellow-100 p-3 rounded-md shadow-sm">
+                                        <span className="font-medium text-yellow-900">{pair.left}</span>
+                                        <span className="text-gray-700">{pair.right}</span>
+                                    </div>
+                                ))}
+                            </div>
+                            <p className="text-sm text-gray-500 mt-2">
+                                (هذا النشاط للمطابقة البصرية، لا يوجد تحقق آلي هنا.)
+                            </p>
+                        </div>
+                    )}
+                </div>
+            )}
+        </div>
+    );
+
+    return (
+        <div className="min-h-screen bg-gradient-to-br from-indigo-500 to-purple-600 text-gray-900 p-4 font-sans">
+            <div className="bg-white rounded-xl shadow-2xl w-full max-w-5xl mx-auto my-8 transform transition-all duration-300 hover:scale-[1.01]">
+                <header className="p-6 bg-indigo-700 text-white rounded-t-xl text-center">
+                    <h1 className="text-5xl font-extrabold mb-2">تعلم الإنجليزية</h1>
+                    <p className="text-xl font-light">مستوى المبتدئين</p>
+                </header>
+
+                <main className="p-6">
+                    {currentLesson ? (
+                        <LessonDetail lesson={currentLesson} goBack={goToLessonList} />
+                    ) : (
+                        <Dashboard />
+                    )}
+                </main>
+
+                <footer className="p-6 bg-gray-100 text-center text-gray-500 text-sm rounded-b-xl">
+                    <p>&copy; 2023 تطبيق تعلم الإنجليزية. جميع الحقوق محفوظة.</p>
+                    <p>تم الإنشاء بواسطة الذكاء الاصطناعي</p>
+                </footer>
+            </div>
+        </div>
+    );
+}
+
+export default App;
